@@ -16,6 +16,8 @@
 
 package it.cosenonjaviste.daggermock.demo.robolectric;
 
+import android.widget.TextView;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,11 +36,13 @@ import it.cosenonjaviste.daggermock.demo.MyPrinter;
 import it.cosenonjaviste.daggermock.demo.RestService;
 import it.cosenonjaviste.daggeroverride.BuildConfig;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@Config(constants = BuildConfig.class, sdk = 26,application = App.class)
 public class MainActivityTest {
 
     @Rule public final DaggerMockRule<MyComponent> rule = new DaggerMockRule<>(MyComponent.class, new MyModule())
@@ -59,5 +63,11 @@ public class MainActivityTest {
         Robolectric.setupActivity(MainActivity.class);
 
         verify(myPrinter).print("ABC");
+
+
+
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).create().get();
+        TextView firstRepo = (TextView) shadowOf(activity).getContentView();
+        assertEquals("Only one repo", firstRepo.getText(), "DaggerMock");
     }
 }

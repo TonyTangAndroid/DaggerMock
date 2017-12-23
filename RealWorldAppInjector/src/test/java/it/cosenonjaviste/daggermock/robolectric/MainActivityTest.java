@@ -25,6 +25,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import it.cosenonjaviste.daggermock.DaggerMockRule;
+import it.cosenonjaviste.daggermock.realworldapp.App;
 import it.cosenonjaviste.daggermock.realworldapp.AppComponent;
 import it.cosenonjaviste.daggermock.realworldapp.main.MainActivity;
 import it.cosenonjaviste.daggermock.realworldapp.services.RestService;
@@ -33,7 +34,7 @@ import it.cosenonjaviste.daggeroverride.BuildConfig;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@Config(constants = BuildConfig.class, sdk = 26, application = App.class)
 public class MainActivityTest {
 
     @Rule public final DaggerMockRule<AppComponent> rule = new RobolectricMockTestRule();
