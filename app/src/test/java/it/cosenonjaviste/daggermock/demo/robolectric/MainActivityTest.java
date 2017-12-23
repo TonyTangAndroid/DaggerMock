@@ -45,16 +45,20 @@ import static org.robolectric.Shadows.shadowOf;
 @Config(constants = BuildConfig.class, sdk = 26,application = App.class)
 public class MainActivityTest {
 
-    @Rule public final DaggerMockRule<MyComponent> rule = new DaggerMockRule<>(MyComponent.class, new MyModule())
+    @Rule
+    public final DaggerMockRule<MyComponent> rule = new DaggerMockRule<>(MyComponent.class, new MyModule())
             .set(new DaggerMockRule.ComponentSetter<MyComponent>() {
-                @Override public void setComponent(MyComponent component) {
+                @Override
+                public void setComponent(MyComponent component) {
                     ((App) RuntimeEnvironment.application).setComponent(component);
                 }
             });
 
-    @Mock RestService restService;
+    @Mock
+    RestService restService;
 
-    @Mock MyPrinter myPrinter;
+    @Mock
+    MyPrinter myPrinter;
 
     @Test
     public void testCreateActivity() {
@@ -62,8 +66,8 @@ public class MainActivityTest {
 
         Robolectric.setupActivity(MainActivity.class);
 
+        verify(restService).getSomething();
         verify(myPrinter).print("ABC");
-
 
 
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).create().get();

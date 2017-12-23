@@ -29,6 +29,7 @@ android {
     defaultConfig {
         applicationId "it.cosenonjaviste.daggeroverride"
         minSdkVersion 14
+        //noinspection OldTargetApi
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -57,8 +58,11 @@ dependencies {
     androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     testAnnotationProcessor "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
-    testCompile project(':daggermock')
-    androidTestCompile project(':daggermock')
+
+    testCompile 'com.github.fabioCollini.daggermock:daggermock:0.8.2'
+    //and/or
+    androidTestCompile 'com.github.fabioCollini.daggermock:daggermock:0.8.2'
+
 
     testCompile "org.robolectric:robolectric:3.6.1"
     testCompile 'org.assertj:assertj-core:3.8.0'
